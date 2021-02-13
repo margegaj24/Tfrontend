@@ -1,0 +1,14 @@
+[
+  {
+    "menu_title": "Users",
+    "path": "/users",
+    "url": "https://jsonplaceholder.typicode.com/users",
+    "icon": "TeamOutlined"
+  },
+  {
+    "menu_title": "Posts",
+    "path": "/posts",
+    "url": "https://jsonplaceholder.typicode.com/posts",
+    "icon": "MessageOutlined"
+  }
+]
