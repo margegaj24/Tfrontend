@@ -1,36 +1,12 @@
 import React from "react";
-import axios from "axios"
-import { Table } from "antd";
-import {useState, useEffect} from "react";
+import axios from "axios";
+import { Table, Button, Space } from "antd";
+import { useState, useEffect } from "react";
 
 const columns = [
   {
     title: "Name",
     dataIndex: "name",
-    filters: [
-      {
-        text: "Joe",
-        value: "Joe",
-      },
-      {
-        text: "Jim",
-        value: "Jim",
-      },
-      {
-        text: "Submenu",
-        value: "Submenu",
-        children: [
-          {
-            text: "Green",
-            value: "Green",
-          },
-          {
-            text: "Black",
-            value: "Black",
-          },
-        ],
-      },
-    ],
     // specify the condition of filtering result
     // here is that finding the name started with `value`
     onFilter: (value, record) => record.name.indexOf(value) === 0,
@@ -42,8 +18,30 @@ const columns = [
     dataIndex: "surname",
   },
   {
+    title: "Courses",
+    dataIndex: "courses",
+    render: (courses) => <p>{courses.length}</p>,
+  },
+  {
     title: "Action",
     dataIndex: "",
+    render: (student) => (
+      <Space size="middle" align="center">
+        <Button>View</Button>
+        <Button type="primary">Edit</Button>
+        <Button
+          type="danger"
+          onClick={() => {
+            axios.delete("http://localhost:5000/student/" + student._id).then((response) => {
+              if (response.data.error) alert(response.data.error);
+              else alert(response.data.message);
+            });
+          }}
+        >
+          Delete
+        </Button>
+      </Space>
+    ),
   },
 ];
 
@@ -51,14 +49,14 @@ const Students = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => loadStudents(), []);
-  
-  const loadStudents = async () => {
-    const students = await axios.get('http://192.168.1.142:5000/students')
-    //console.log(students)
-    setData(students.data)
-  }
 
-  if (data.length == 0) return <h1>Loading student data...</h1>;
+  const loadStudents = async () => {
+    const students = await axios.get("http://localhost:5000/students");
+    setData(students.data);
+  };
+
+  if (data.length === 0) return <h1>Loading student data...</h1>;
+
   return (
     <Table
       pagination={{
@@ -72,7 +70,7 @@ const Students = () => {
       //onChange={this.onChange}
     />
   );
-}
+};
 
 // onChange(pagination, filters, sorter, extra) {
 //   console.log("params", pagination, filters, sorter, extra);

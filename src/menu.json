@@ -1,13 +1,13 @@
 [
   {
-    "menu_title": "Users",
-    "path": "/users",
+    "menu_title": "Students",
+    "path": "/students",
     "url": "https://jsonplaceholder.typicode.com/users",
     "icon": "TeamOutlined"
   },
   {
-    "menu_title": "Posts",
-    "path": "/posts",
+    "menu_title": "Courses",
+    "path": "/courses",
     "url": "https://jsonplaceholder.typicode.com/posts",
     "icon": "MessageOutlined"
   }
