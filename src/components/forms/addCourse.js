@@ -22,8 +22,9 @@ const AddCourseForm = ({ visible, onCreate, onCancel }) => {
                 if (response.data.error) alert(response.data.error);
                 else alert(response.data.message);
               })
-              .catch((error) => alert(error.message));
+              .catch((error) => alert("Something wrong happened..."));
             onCreate();
+            form.resetFields();
           })
           .catch((info) => {
             console.log("Validate Failed: ", info);

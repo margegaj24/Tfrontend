@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 const columns = [
   {
-    title: "Name",
+    title: "Course Name",
     dataIndex: "name",
     // specify the condition of filtering result
     // here is that finding the name started with `value`
@@ -21,17 +21,27 @@ const columns = [
   {
     title: "Action",
     dataIndex: "",
-    render: (text, record) => (
+    render: (course) => (
       <Space size="middle" align="center">
         <Button>View</Button>
         <Button type="primary">Edit</Button>
-        <Button type="danger">Delete</Button>
+        <Button
+          type="danger"
+          onClick={() => {
+            axios.delete("http://localhost:5000/course/" + course._id).then((response) => {
+              if (response.data.error) alert(response.data.error);
+              else alert(response.data.message);
+            });
+          }}
+        >
+          Delete
+        </Button>
       </Space>
     ),
   },
 ];
 
-const Students = () => {
+const Courses = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => loadCourses(), []);
@@ -53,9 +63,9 @@ const Students = () => {
       }}
       columns={columns}
       dataSource={data}
-      onChange={loadCourses()}
+      //onChange={loadCourses()}
     />
   );
 };
 
-export default Students;
+export default Courses;

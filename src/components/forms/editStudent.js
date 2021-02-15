@@ -3,25 +3,18 @@ import { Modal, Form, Input, Select } from "antd";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const AddStudentForm = ({ visible, onCreate, onCancel }) => {
+const EditStudentForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
   const { Option } = Select;
   const [availableCourses, setAvailableCourses] = useState([]);
-  const [courseOptions, setCourseOptions] = useState([]);
-
-  useEffect(() => loadAvailableCourses(), []);
 
   const loadAvailableCourses = async () => {
-    var response = await axios.get("http://localhost:5000/courses");
-    var courses = [];
-    var allCourses = [];
-    response.data.forEach((course, index) => {
-      courses.push(<Option key={index}>{course.name}</Option>);
-      allCourses.push(course);
-    });
-    setAvailableCourses(allCourses);
-    setCourseOptions(courses);
+    var courses = await axios.get("http://localhost:5000/courses/");
+    courses.forEach((course) => delete course.students);
+    setAvailableCourses(courses);
   };
+
+  useEffect(() => loadAvailableCourses(), []);
 
   return (
     <Modal
@@ -36,14 +29,13 @@ const AddStudentForm = ({ visible, onCreate, onCancel }) => {
         submitedValues.courses = submitedValues.courses.map((indexEl) => availableCourses[parseInt(indexEl)]._id);
         console.log(submitedValues);
         axios
-          .post("http://localhost:5000/students", submitedValues)
+          .post("http://localhost:5000/addCoursesToStudent/" + submitedValues.studentId, submitedValues.courses)
           .then((response) => {
             if (response.data.error) alert(response.data.error);
             else alert(response.data.message);
           })
           .catch((error) => alert(error.message));
         onCreate();
-        form.resetFields();
       }}
     >
       <Form
@@ -54,33 +46,9 @@ const AddStudentForm = ({ visible, onCreate, onCancel }) => {
           modifier: "public",
         }}
       >
-        <Form.Item
-          name="name"
-          label="Name"
-          rules={[
-            {
-              required: true,
-              message: "Please input the name of student!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="surname"
-          label="Surname"
-          rules={[
-            {
-              required: true,
-              message: "Please input the surname of student!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
         <Form.Item name="courses" label="Select Courses">
           <Select mode="tags" style={{ width: "100%" }} tokenSeparators={["   "]}>
-            {courseOptions}
+            {availableCourses}
           </Select>
         </Form.Item>
       </Form>
@@ -88,4 +56,4 @@ const AddStudentForm = ({ visible, onCreate, onCancel }) => {
   );
 };
 
-export default AddStudentForm;
+export default EditStudentForm;
