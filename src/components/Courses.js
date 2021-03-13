@@ -28,10 +28,12 @@ const columns = [
         <Button
           type="danger"
           onClick={() => {
-            axios.delete("http://localhost:5000/course/" + course._id).then((response) => {
-              if (response.data.error) alert(response.data.error);
-              else alert(response.data.message);
-            });
+            axios
+              .delete("https://xro4owx9f2.execute-api.eu-west-2.amazonaws.com/dev/courses/" + course._id)
+              .then((response) => {
+                if (response.data.error) alert(response.data.error);
+                else alert(response.data.message);
+              });
           }}
         >
           Delete
@@ -47,7 +49,7 @@ const Courses = () => {
   useEffect(() => loadCourses(), []);
 
   const loadCourses = async () => {
-    const courses = await axios.get("http://localhost:5000/courses");
+    const courses = await axios.get("https://xro4owx9f2.execute-api.eu-west-2.amazonaws.com/dev/courses");
     setData(courses.data);
   };
 

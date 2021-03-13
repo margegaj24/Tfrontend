@@ -7,6 +7,7 @@ import Courses from "./components/Courses";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import SideBar from "./components/layouts/SideBar";
 import Header from "./components/layouts/Header";
+import { withAuthenticator } from "@aws-amplify/ui-react";
 
 function App() {
   const { Content, Footer } = Layout;
@@ -32,4 +33,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App);

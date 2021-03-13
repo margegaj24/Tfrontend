@@ -17,7 +17,7 @@ const AddCourseForm = ({ visible, onCreate, onCancel }) => {
           .then((values) => {
             console.log(values);
             axios
-              .post("http://localhost:5000/courses", values)
+              .post("https://xro4owx9f2.execute-api.eu-west-2.amazonaws.com/dev/courses", values)
               .then((response) => {
                 if (response.data.error) alert(response.data.error);
                 else alert(response.data.message);

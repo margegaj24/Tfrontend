@@ -2,6 +2,7 @@ import { Layout, Button, Space } from "antd";
 import AddStudentForm from "../forms/addStudent";
 import AddCourseForm from "../forms/addCourse";
 import { useState } from "react";
+import { AmplifySignOut } from "@aws-amplify/ui-react";
 
 function Header() {
   const { Header } = Layout;
@@ -27,6 +28,7 @@ function Header() {
           onCancel={() => setCourseFormVisible(false)}
           onCreate={() => setCourseFormVisible(false)}
         ></AddCourseForm>
+        <AmplifySignOut />
       </Space>
     </Header>
   );

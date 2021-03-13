@@ -9,7 +9,7 @@ const EditStudentForm = ({ visible, onCreate, onCancel }) => {
   const [availableCourses, setAvailableCourses] = useState([]);
 
   const loadAvailableCourses = async () => {
-    var courses = await axios.get("http://localhost:5000/courses/");
+    var courses = await axios.get("https://xro4owx9f2.execute-api.eu-west-2.amazonaws.com/dev/courses");
     courses.forEach((course) => delete course.students);
     setAvailableCourses(courses);
   };
@@ -29,7 +29,11 @@ const EditStudentForm = ({ visible, onCreate, onCancel }) => {
         submitedValues.courses = submitedValues.courses.map((indexEl) => availableCourses[parseInt(indexEl)]._id);
         console.log(submitedValues);
         axios
-          .post("http://localhost:5000/addCoursesToStudent/" + submitedValues.studentId, submitedValues.courses)
+          .post(
+            "https://xro4owx9f2.execute-api.eu-west-2.amazonaws.com/dev/students/addCoursesToStudent/" +
+              submitedValues.studentId,
+            submitedValues.courses
+          )
           .then((response) => {
             if (response.data.error) alert(response.data.error);
             else alert(response.data.message);

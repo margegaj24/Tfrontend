@@ -32,10 +32,12 @@ const columns = [
         <Button
           type="danger"
           onClick={() => {
-            axios.delete("http://localhost:5000/student/" + student._id).then((response) => {
-              if (response.data.error) alert(response.data.error);
-              else alert(response.data.message);
-            });
+            axios
+              .delete("https://xro4owx9f2.execute-api.eu-west-2.amazonaws.com/dev/students/" + student._id)
+              .then((response) => {
+                if (response.data.error) alert(response.data.error);
+                else alert(response.data.message);
+              });
           }}
         >
           Delete
@@ -51,7 +53,7 @@ const Students = () => {
   useEffect(() => loadStudents(), []);
 
   const loadStudents = async () => {
-    const students = await axios.get("http://localhost:5000/students");
+    const students = await axios.get("https://xro4owx9f2.execute-api.eu-west-2.amazonaws.com/dev/students");
     setData(students.data);
   };
 
