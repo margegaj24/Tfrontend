@@ -53,7 +53,7 @@ const Students = () => {
   useEffect(() => loadStudents(), []);
 
   const loadStudents = async () => {
-    const students = await axios.get("https://xro4owx9f2.execute-api.eu-west-2.amazonaws.com/dev/students");
+    const students = await axios.get("https://57zzkobn95.execute-api.eu-west-2.amazonaws.com/dev/students");
     setData(students.data);
   };
 

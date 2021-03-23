@@ -12,7 +12,7 @@ const AddStudentForm = ({ visible, onCreate, onCancel }) => {
   useEffect(() => loadAvailableCourses(), []);
 
   const loadAvailableCourses = async () => {
-    var response = await axios.get("https://xro4owx9f2.execute-api.eu-west-2.amazonaws.com/dev/courses");
+    var response = await axios.get("https://57zzkobn95.execute-api.eu-west-2.amazonaws.com/dev/courses");
     var courses = [];
     var allCourses = [];
     response.data.forEach((course, index) => {
@@ -36,7 +36,7 @@ const AddStudentForm = ({ visible, onCreate, onCancel }) => {
         submitedValues.courses = submitedValues.courses.map((indexEl) => availableCourses[parseInt(indexEl)]._id);
         console.log(submitedValues);
         axios
-          .post("https://xro4owx9f2.execute-api.eu-west-2.amazonaws.com/dev/students", submitedValues)
+          .post("https://57zzkobn95.execute-api.eu-west-2.amazonaws.com/dev/students", submitedValues)
           .then((response) => {
             if (response.data.error) alert(response.data.error);
             else alert(response.data.message);

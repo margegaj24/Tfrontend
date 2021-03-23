@@ -29,7 +29,7 @@ const columns = [
           type="danger"
           onClick={() => {
             axios
-              .delete("https://xro4owx9f2.execute-api.eu-west-2.amazonaws.com/dev/courses/" + course._id)
+              .delete("https://57zzkobn95.execute-api.eu-west-2.amazonaws.com/dev/courses/" + course._id)
               .then((response) => {
                 if (response.data.error) alert(response.data.error);
                 else alert(response.data.message);
@@ -49,7 +49,7 @@ const Courses = () => {
   useEffect(() => loadCourses(), []);
 
   const loadCourses = async () => {
-    const courses = await axios.get("https://xro4owx9f2.execute-api.eu-west-2.amazonaws.com/dev/courses");
+    const courses = await axios.get("https://57zzkobn95.execute-api.eu-west-2.amazonaws.com/dev/courses");
     setData(courses.data);
   };
 

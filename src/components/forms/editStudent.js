@@ -9,7 +9,7 @@ const EditStudentForm = ({ visible, onCreate, onCancel }) => {
   const [availableCourses, setAvailableCourses] = useState([]);
 
   const loadAvailableCourses = async () => {
-    var courses = await axios.get("https://xro4owx9f2.execute-api.eu-west-2.amazonaws.com/dev/courses");
+    var courses = await axios.get("https://57zzkobn95.execute-api.eu-west-2.amazonaws.com/dev/courses");
     courses.forEach((course) => delete course.students);
     setAvailableCourses(courses);
   };
@@ -30,7 +30,7 @@ const EditStudentForm = ({ visible, onCreate, onCancel }) => {
         console.log(submitedValues);
         axios
           .post(
-            "https://xro4owx9f2.execute-api.eu-west-2.amazonaws.com/dev/students/addCoursesToStudent/" +
+            "https://57zzkobn95.execute-api.eu-west-2.amazonaws.com/dev/students/addCoursesToStudent/" +
               submitedValues.studentId,
             submitedValues.courses
           )

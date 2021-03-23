@@ -11,6 +11,7 @@ Amplify.configure(awsconfig);
 
 axios.interceptors.request.use(async (request) => {
   request.headers.authorization = (await Auth.currentSession()).getIdToken().getJwtToken();
+  request.headers["Access-Control-Allow-Origin"] = "*";
   return request;
 });
 
